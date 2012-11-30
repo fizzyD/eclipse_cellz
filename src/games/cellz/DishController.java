@@ -34,7 +34,6 @@ public class DishController extends Thread {
         // get same behaviour every time for now
         model = new DishModel(width, height, new Random(1) );
         CellModel cell = new CellModel(width / 2, height / 2, new GreedyControl());
-        CellModel sc = new SmartCell(width / 2, height / 2, new GreedyControl());
         model.add(cell);
         // Food food = new Food(width * 2 / 3, height * 2 / 3, 5);
         model.addRandomFood( nFood );
