@@ -110,9 +110,12 @@ public class StatisticalSummary implements java.io.Serializable {
   }
 */
 
-    public static double sigDiff(StatisticalSummary s1, StatisticalSummary s2) {
-        return StatisticalTests.tNotPaired(
-                s1.mean(), s2.mean(), s1.sumSquareDiff(), s2.sumSquareDiff(), s1.n, s2.n, true);
+    public static String sigDiff(StatisticalSummary s1, StatisticalSummary s2) {
+    	String info;
+    	info = String.format("s1_mean %f s2 mean %f s1sumsqdiff = %f s2sumsqdiff %f s1.n %d s2.n %d", 
+    			s1.mean(), s2.mean(), s1.sumSquareDiff(), s2.sumSquareDiff(), s1.n, s2.n, true);
+        return info;
+                
     }
 
     /** returns the sum of the squares of the differences
