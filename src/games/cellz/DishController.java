@@ -16,7 +16,7 @@ public class DishController extends Thread {
     int width = 640;
     int height = 480;
     //static int delay = 30;
-    static int delay = 0;
+    static int draw_delay = 30;
     Label label;
 
     public static void main(String[] args) throws Exception {
@@ -49,35 +49,32 @@ public class DishController extends Thread {
     }
 
     public void run() {
+    	int update_to_display_ratio = 100;
     	StatisticalSummary mt = new StatisticalSummary();
         ElapsedTimer t = new ElapsedTimer();
         int x = 0;
         view.repaint();
         mt.add( t.elapsed());
         System.out.println( mt );
-        while (true) {
+        final int iterations = 10000;
+        int iteration = 0;
+        while (iterations > iteration) {
+        	++iteration;
             try {
-            	if(delay > 0){
-            		sleep(delay);
-                    view.repaint();
-            	}
                 model.updateModel();
                 ++x;
-                if ((delay > 0) && (x % (1000 / delay) == 0)) {
+                if ((0 == x%update_to_display_ratio)) {
                     // label.setText( model.nParticles() + " : " + ( x * 1000 ) / t.elapsed() );
-                    x = 0;
                     // mt.add( t.elapsed() );
                     // t.reset();
                     // mt.reset();
-                } else {
-                	if (x > 200){
-                		x = 0;
-                		mt.add( t.elapsed());
-                        System.out.println( mt );
-                		//System.out.println("repaint");
-                		view.repaint();
-                		sleep(30);
-                	}
+                	x = 0;
+                	mt.add( t.elapsed());
+                    System.out.println( mt );
+                    System.out.println("iteration = " + iteration);
+                	//System.out.println("repaint");
+                	view.repaint();
+                	sleep(draw_delay);
                 }
             } catch (Exception e) {
                 // System.out.println( e );
