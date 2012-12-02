@@ -12,9 +12,15 @@ import games.math.Vector2d;
  */
 public class CellSounds {
     SoundPlayer player;
-
-    public CellSounds() {
-        player = new SoundPlayer();
+    boolean play_sound;
+    
+    public CellSounds(boolean play_sound) {
+    	this.play_sound = play_sound;
+    	if (this.play_sound){
+    		player = new SoundPlayer();
+    	} else{
+    		System.out.println("sound disabled");
+    	}
     }
 
     public void move(Vector2d v) {
@@ -25,13 +31,17 @@ public class CellSounds {
     }
 
     public void eatFood(int mass) {
-        player.play( mass + 20 );
-        player.play( mass + 32 );
+    	if(this.play_sound){
+    		player.play( mass + 20 );
+    		player.play( mass + 32 );
+    	}
     }
 
     public void eatCell() {
-        player.play( 80 );
-        player.play( 84 );
+    	if(this.play_sound){
+    		player.play( 80 );
+    		player.play( 84 );
+    	}
     }
 
 }

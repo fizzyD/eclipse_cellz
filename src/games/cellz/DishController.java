@@ -1,7 +1,7 @@
 package games.cellz;
 
-//import utilities.StatisticalSummary;
-//import utilities.ElapsedTimer;
+import utilities.StatisticalSummary;
+import utilities.ElapsedTimer;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -15,7 +15,8 @@ public class DishController extends Thread {
     JFrame frame;
     int width = 640;
     int height = 480;
-    static int delay = 30;
+    //static int delay = 30;
+    static int delay = 0;
     Label label;
 
     public static void main(String[] args) throws Exception {
@@ -48,23 +49,35 @@ public class DishController extends Thread {
     }
 
     public void run() {
-        // StatisticalSummary mt = new StatisticalSummary();
-        // ElapsedTimer t = new ElapsedTimer();
+    	StatisticalSummary mt = new StatisticalSummary();
+        ElapsedTimer t = new ElapsedTimer();
         int x = 0;
-        // mt.add( t.elapsed());
-        // System.out.println( mt );
+        view.repaint();
+        mt.add( t.elapsed());
+        System.out.println( mt );
         while (true) {
             try {
-                sleep(delay);
+            	if(delay > 0){
+            		sleep(delay);
+                    view.repaint();
+            	}
                 model.updateModel();
-                view.repaint();
-                x++;
-                if (x % (1000 / delay) == 0) {
+                ++x;
+                if ((delay > 0) && (x % (1000 / delay) == 0)) {
                     // label.setText( model.nParticles() + " : " + ( x * 1000 ) / t.elapsed() );
                     x = 0;
                     // mt.add( t.elapsed() );
                     // t.reset();
                     // mt.reset();
+                } else {
+                	if (x > 200){
+                		x = 0;
+                		mt.add( t.elapsed());
+                        System.out.println( mt );
+                		//System.out.println("repaint");
+                		view.repaint();
+                		sleep(30);
+                	}
                 }
             } catch (Exception e) {
                 // System.out.println( e );

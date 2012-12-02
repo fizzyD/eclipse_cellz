@@ -12,7 +12,7 @@ public class CellModel extends Particle {
     // for example - it could work out the location
     // of the closest piece of food, then head straight
     // for it
-    static CellSounds player = new CellSounds();
+    static CellSounds player = new CellSounds(false);
 
     CellControl control;
     Vector2d a;
