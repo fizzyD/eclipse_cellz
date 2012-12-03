@@ -57,6 +57,9 @@ public class DishController extends Thread {
         mt.add( t.elapsed());
         System.out.println( mt );
         final int iterations = 10000;
+        // for some number of simulations
+        // run a number of different Cells
+        // then apply genetics to evolve them
         int iteration = 0;
         while (iterations > iteration) {
         	++iteration;
@@ -72,6 +75,7 @@ public class DishController extends Thread {
                 	mt.add( t.elapsed());
                     System.out.println( mt );
                     System.out.println("iteration = " + iteration);
+                    System.out.println( "cell population " +model.nParticles() );                    
                 	//System.out.println("repaint");
                 	view.repaint();
                 	sleep(draw_delay);
@@ -81,5 +85,6 @@ public class DishController extends Thread {
                 e.printStackTrace();
             }
         }
+        //System.out.println( "particles " +model.nParticles() );
     }
 }
