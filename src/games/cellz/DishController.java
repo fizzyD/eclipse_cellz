@@ -62,13 +62,11 @@ public class DishController extends Thread {
         	++iteration;
             try {
                 model.updateModel();
-                ++x;
-                if ((0 == x%update_to_display_ratio)) {
+                if ((0 == iteration%update_to_display_ratio)) {
                     // label.setText( model.nParticles() + " : " + ( x * 1000 ) / t.elapsed() );
                     // mt.add( t.elapsed() );
                     // t.reset();
                     // mt.reset();
-                	x = 0;
                 	mt.add( t.elapsed());
                     System.out.println( mt );
                     System.out.println("iteration = " + iteration);
