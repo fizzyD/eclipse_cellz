@@ -15,12 +15,29 @@ import org.neuroph.util.TransferFunctionType;
 
 public class SmartControl implements CellControl {
     Vector2d force;
-
+    TrainingSet<SupervisedTrainingElement> trainingSet;
     public static int threshold = 200;
     static double maxForce = threshold / 10;
-
+    NeuralNetwork cellzMlPerceptron;
+    
     public SmartControl() {
         force = new Vector2d();
+        //TrainingSet<SupervisedTrainingElement> trainingSet = new TrainingSet<SupervisedTrainingElement>(2, 1);
+        
+        // create multi layer perceptron
+        // inputs x velocity, y velocity, food xdel, food ydel, cell_size,
+        // outputs x_velocity, y_velocity, split_bool
+        MultiLayerPerceptron myMlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH, 5, 7, 4);
+
+        // save trained neural network
+        myMlPerceptron.save("cellzMlPerceptron.nnet");
+
+        // load saved neural network
+        cellzMlPerceptron = NeuralNetwork.load("cellzMlPerceptron.nnet");
+
+        // test loaded neural network
+        System.out.println("Testing loaded neural network");
+
     }
 
     public boolean split(CellModel me) {
@@ -51,9 +68,10 @@ public class SmartControl implements CellControl {
         } else {
             // now compute the force vector to the closest one
             // System.out.println("Closest: " + closest);
-            force.add(closest.s);
-            force.subtract(me.s);
-            force.setMag( maxForce );
+        	//force.add(closest.s);
+            //force.subtract(me.s);
+            //force.setMag( maxForce );
+        	
             // System.out.println("Force = " + force);
         }
         return force;
